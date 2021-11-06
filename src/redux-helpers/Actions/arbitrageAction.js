@@ -1,0 +1,26 @@
+import { LATEST_BASIS_BY_NAME, CLEAR_ARBITRAGE_STATE } from './types';
+import baseApiReq from '../../api';
+import { returnErrors } from "./errorAction";
+
+export const latestBasisByBaseName = (body) => async (dispatch) => {
+    await baseApiReq.post("/latestBasisByBaseName", body)
+        .then(res => {
+            //  console.log("RES FROM AXIOS : ", res)
+            dispatch({
+                type: LATEST_BASIS_BY_NAME,
+                payload: res.data,
+            });
+        }).catch(err => {
+            // console.log("ERROR addMoyaApp:  ", err)
+            dispatch(
+                returnErrors(err, 400, "LATEST_BASIS_BY_NAME_FAIL")
+            )
+        })
+};
+
+export const clearArbitragesState = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_ARBITRAGE_STATE,
+        payload: null,
+    });
+}
