@@ -84,6 +84,11 @@ function Navbar(props) {
       link: '/Sample',
       name: 'Sample',
       icon: <InboxIcon />,
+    },
+    {
+      link: '/Arbitrage',
+      name: 'Arbitrage',
+      icon: <InboxIcon />,
     }
   ]
   const drawer = (

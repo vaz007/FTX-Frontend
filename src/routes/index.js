@@ -10,6 +10,7 @@ import { Toast } from "../components/Toast";
 import Dashboard from "../components/Dashboard";
 import Navbar from "../components/Navbar";
 import Sample from "../components/Sample";
+import Arbitrage from "../components/Arbitrage/Arbitrage";
 
 // import SignIn from "../components/auth/SignIn";
 // import Register from "../components/auth/Register";
@@ -50,6 +51,8 @@ const Routes = ({ isAuthenticated, token, alert }) => {
                         <Route path="/" exact component={Dashboard} />
                         <Route path="/Dashboard" exact component={Dashboard} />
                         <Route path="/Sample" component={Sample} />
+                        <Route path="/Arbitrage" component={Arbitrage} />
+                     
                         {/* <RouteProtected path="/" exact component={} /> */}
                     </Switch>
                 </div>
