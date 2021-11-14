@@ -2,7 +2,7 @@ import {
     LATEST_BASIS_BY_NAME,
     CLEAR_ARBITRAGE_STATE
 } from "../Actions/types";
-import _ from 'lodash';
+import _, { result } from 'lodash';
 // initial state for the auth component
 const initialState = {
     arbitrage: [],
@@ -15,14 +15,14 @@ const initialState = {
 const arbitrageReducer = (state = initialState, action) => {
     switch (action.type) {
         case LATEST_BASIS_BY_NAME:
-            const result = []
-            action.payload.map(item => {
-                result.push({ futurePrice: item.data[0].futurePrice, symbol: item.data[0].symbol })
-            })
+            // const result = []
+            // action.payload.map(item => {
+            //     result.push({ futurePrice: item.futurePrice, symbol: item.symbol })
+            // })
             return {
                 ...state,
-                arbitrage: result,
-                app: null,
+                // arbitrage: result,
+                arbitrage: action.payload,
                 isLoading: false,
                 status: "success",
                 message: "Successfully fetched the futures",

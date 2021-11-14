@@ -14,6 +14,12 @@ const Arbitrage = () => {
             headerName: "bpsBasis", field: "bpsBasis", sortable: true, filter: true
         },
         {
+            headerName: "change 1Hr", field: "change1h", sortable: true, filter: true
+        },
+        {
+            headerName: "change 24Hr", field: "change24h", sortable: true, filter: true
+        },
+        {
             headerName: "absBasis", field: "absBasis", sortable: true, filter: true
         },
         {
@@ -53,8 +59,7 @@ const Arbitrage = () => {
         const body = {
             depth: 1,
             baseName: [
-                "TONCOIN","LINA", "SOL", "SRM", "GRT", "BNB", "SUSHI", "UNI", "ROOK", "LTC", "RAY", "FIDA", "ENJ", "SLP", "RAMP","ETH","AVAX","MANA","MATIC"
-            ]
+                "TONCOIN", "LINA", "SOL", "SRM", "GRT", "BNB", "SUSHI", "UNI", "ROOK", "LTC", "RAY", "FIDA", "ENJ", "SLP", "RAMP", "ETH","MANA", "MATIC"]
         }
         await baseApiReq.post("/latestBasisByBaseName", body).then(res => {
             //  console.log(res.data);
@@ -62,18 +67,20 @@ const Arbitrage = () => {
             if (res.data.length !== 0) {
                 res.data.map(item => {
                     result.push({
-                        symbol: item.data[0].symbol,
-                        bpsBasis: item.data[0].absPrice.toFixed(3),
-                        futurePrice: item.data[0].futurePrice.toFixed(3),
-                        bidPrice: item.data[0].bidPrice.toFixed(3),
-                        askPrice: item.data[0].askPrice.toFixed(3),
-                        askSize: item.data[0].askSize.toFixed(3),
-                        bidSize: item.data[0].bidSize.toFixed(3),
-                        midPrice: item.data[0].midPrice.toFixed(3),
-                        spotPrice: item.data[0].spotPrice.toFixed(3),
-                        absBasis : (item.data[0].futurePrice - item.data[0].spotPrice).toFixed(3),
-                        absSpread : (item.data[0].askPrice- item.data[0].bidPrice).toFixed(3),
-                        bpsSpread : (((item.data[0].askPrice-item.data[0].bidPrice)/item.data[0].bidPrice) * 10000).toFixed(3),
+                        symbol: item.symbol,
+                        bpsBasis: item.absPrice.toFixed(3),
+                        futurePrice: item.futurePrice.toFixed(3),
+                        bidPrice: item.bidPrice.toFixed(3),
+                        askPrice: item.askPrice.toFixed(3),
+                        askSize: item.askSize.toFixed(3),
+                        bidSize: item.bidSize.toFixed(3),
+                        midPrice: item.midPrice.toFixed(3),
+                        spotPrice: item.spotPrice.toFixed(3),
+                        absBasis: item.absBasis.toFixed(3),
+                        absSpread: item.absSpread.toFixed(3),
+                        bpsSpread: item.bpsSpread.toFixed(3),
+                        change1h: item.change1hPercentage.toFixed(3),
+                        change24h:item.change24hPercentage.toFixed(3)
                     })
                 })
                 setRowData([...result])
@@ -85,7 +92,7 @@ const Arbitrage = () => {
     }
     return (
         <Grid container>
-            <Grid item xs={12} sm={12} md={12} lg={10} xl={9}>
+            <Grid item xs={12} sm={12} md={12} lg={11} xl={10}>
                 <AgGrid
                     row={rowData}
                     column={colDefs}
