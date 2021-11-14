@@ -23,6 +23,12 @@ const Arbitrage = () => {
             headerName: "futurePrice", field: "futurePrice", sortable: true, filter: true
         },
         {
+            headerName: "absSpread", field: "absSpread", sortable: true, filter: true
+        },
+        {
+            headerName: "bpsSpread", field: "bspSpread", sortable: true, filter: true
+        },
+        {
             headerName: "bidPrice", field: "bidPrice", sortable: true, filter: true
         },
         {
@@ -66,6 +72,8 @@ const Arbitrage = () => {
                         midPrice: item.data[0].midPrice.toFixed(3),
                         spotPrice: item.data[0].spotPrice.toFixed(3),
                         absBasis : (item.data[0].futurePrice - item.data[0].spotPrice).toFixed(3),
+                        absSpread : (askPrice- bidPrice).toFixed(3),
+                        bpsSpread = (askPrice-bidPrice)/bidPrice*10000,
                     })
                 })
                 setRowData([...result])
