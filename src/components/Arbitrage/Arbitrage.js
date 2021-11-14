@@ -20,7 +20,7 @@ const Arbitrage = () => {
             headerName: "spotPrice", field: "spotPrice", sortable: true, filter: true
         },
         {
-            headerName: "futurePrice", field: "futurePrice", sortable: true, filter: true
+            headerName: "futPrice", field: "futurePrice", sortable: true, filter: true
         },
         {
             headerName: "absSpread", field: "absSpread", sortable: true, filter: true
