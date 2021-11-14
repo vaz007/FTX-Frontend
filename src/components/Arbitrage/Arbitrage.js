@@ -72,8 +72,8 @@ const Arbitrage = () => {
                         midPrice: item.data[0].midPrice.toFixed(3),
                         spotPrice: item.data[0].spotPrice.toFixed(3),
                         absBasis : (item.data[0].futurePrice - item.data[0].spotPrice).toFixed(3),
-                        absSpread : (askPrice- bidPrice).toFixed(3),
-                        bpsSpread = (askPrice-bidPrice)/bidPrice*10000,
+                        absSpread : (item.data[0].askPrice- item.data[0].bidPrice).toFixed(3),
+                        bpsSpread : (item.data[0].askPrice-item.data[0].bidPrice)/item.data[0].bidPrice*10000,
                     })
                 })
                 setRowData([...result])
