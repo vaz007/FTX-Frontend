@@ -4,6 +4,29 @@
   align-items: center;
 }
 .ag-header-cell-label {
-    justify-content: center;
- }
- 
+  justify-content: center;
+}
+.container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+  -ms-grid-rows: 100vh;
+  grid-template-rows: calc(100vh - 2rem);
+  width: 100%;
+}
+
+.container > *:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+
+.container > *:nth-child(2) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+}
+
+.container > *:nth-child(3) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+}

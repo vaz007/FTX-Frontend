@@ -1,10 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react'
 import AgGrid from '../AgGrid/AgGrid'
-import axios from 'axios';
 import baseApiReq from '../../api';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles, Paper } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+    agGridItem: {
+        height: "80%",
+        maxHeight: "70%"
+    }
+
+}));
 
 const Arbitrage = () => {
+    const classes = useStyles();
     const [rowData, setRowData] = useState([]);
     const colDefs = [
         {
@@ -46,20 +54,13 @@ const Arbitrage = () => {
     ]
 
     useEffect(() => {
-
         initialAxiosCalls()
-        // baseApiReq.get('https://www.ag-grid.com/example-assets/row-data.json').then(res => {
-        //     console.log(res.data);
-        //     setRowData(res.data)
-        // }).catch(err => {
-        //     console.log(err)
-        // })
     }, []);
     const initialAxiosCalls = async () => {
         const body = {
             depth: 1,
             baseName: [
-                "TONCOIN", "LINA", "SOL", "SRM", "GRT", "BNB", "SUSHI", "UNI", "ROOK", "LTC", "RAY", "FIDA", "ENJ", "SLP", "RAMP", "ETH","MANA", "MATIC"]
+                "TONCOIN", "LINA", "SOL", "SRM", "GRT", "BNB", "SUSHI", "UNI", "ROOK", "LTC", "RAY", "FIDA", "ENJ", "SLP", "RAMP", "ETH", "MANA", "MATIC"]
         }
         await baseApiReq.post("/latestBasisByBaseName", body).then(res => {
             //  console.log(res.data);
@@ -80,7 +81,7 @@ const Arbitrage = () => {
                         absSpread: item.absSpread.toFixed(3),
                         bpsSpread: item.bpsSpread.toFixed(3),
                         change1h: item.change1hPercentage.toFixed(3),
-                        change24h:item.change24hPercentage.toFixed(3)
+                        change24h: item.change24hPercentage.toFixed(3)
                     })
                 })
                 setRowData([...result])
@@ -92,11 +93,19 @@ const Arbitrage = () => {
     }
     return (
         <Grid container>
-            <Grid item xs={12} sm={12} md={12} lg={11} xl={10}>
-                <AgGrid
-                    row={rowData}
-                    column={colDefs}
-                />
+            <Grid item xs={12} sm={12} md={12} lg={11} xl={10} >
+                <Paper elevation={3}
+                    className={classes.agGridItem}
+                    style={{
+                        backgroundColor: "red",
+                        // width: "80%",
+                        height: "80%"
+                    }}>
+                    <AgGrid
+                        row={rowData}
+                        column={colDefs}
+                    />
+                </Paper>
             </Grid>
         </Grid>
     )
