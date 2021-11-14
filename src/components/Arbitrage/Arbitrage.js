@@ -53,7 +53,7 @@ const Arbitrage = () => {
         const body = {
             depth: 1,
             baseName: [
-                "TONCOIN","LINA", "SOL", "SRM", "GRT", "BNB", "SUSHI", "UNI", "ROOK", "LTC", "RAY", "FIDA", "ENJ", "SLP", "RAMP",
+                "TONCOIN","LINA", "SOL", "SRM", "GRT", "BNB", "SUSHI", "UNI", "ROOK", "LTC", "RAY", "FIDA", "ENJ", "SLP", "RAMP","ETH","AVAX","MANA","MATIC"
             ]
         }
         await baseApiReq.post("/latestBasisByBaseName", body).then(res => {
