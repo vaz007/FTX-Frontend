@@ -57,16 +57,12 @@ const Arbitrage = () => {
         initialAxiosCalls()
     }, []);
     const initialAxiosCalls = async () => {
-        const body = {
-            depth: 1,
-            baseName: [
-                "TONCOIN", "LINA", "SOL", "SRM", "GRT", "BNB", "SUSHI", "UNI", "ROOK", "LTC", "RAY", "FIDA", "ENJ", "SLP", "RAMP", "ETH", "MANA", "MATIC"]
-        }
-        await baseApiReq.post("/latestBasisByBaseName", body).then(res => {
+
+        await baseApiReq.post("/latestBasisByBaseName").then(res => {
             //  console.log(res.data);
             const result = []
-            if (res.data.length !== 0) {
-                res.data.map(item => {
+            if (res.data.data.length !== 0) {
+                res.data.data.map(item => {
                     result.push({
                         symbol: item.symbol,
                         bpsBasis: item.absPrice.toFixed(3),

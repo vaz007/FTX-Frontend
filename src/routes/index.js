@@ -11,6 +11,7 @@ import Dashboard from "../components/Dashboard";
 import Navbar from "../components/Navbar";
 import Sample from "../components/Sample";
 import Arbitrage from "../components/Arbitrage/Arbitrage";
+import Portfolio from "../components/Portfolio/Portfolio";
 
 // import SignIn from "../components/auth/SignIn";
 // import Register from "../components/auth/Register";
@@ -52,6 +53,7 @@ const Routes = ({ isAuthenticated, token, alert }) => {
                         <Route path="/Dashboard" exact component={Dashboard} />
                         <Route path="/Sample" component={Sample} />
                         <Route path="/Arbitrage" component={Arbitrage} />
+                        <Route path="/Portfolio" component={Portfolio} />
                      
                         {/* <RouteProtected path="/" exact component={} /> */}
                     </Switch>
