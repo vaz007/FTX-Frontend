@@ -6,7 +6,6 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -15,6 +14,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+  BusinessCenter,
+  Dashboard,
+  BarChart,
+  TrendingUp
+} from '@material-ui/icons';
+
 import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -78,22 +84,22 @@ function Navbar(props) {
     {
       link: '/Dashboard',
       name: 'Dashboard',
-      icon: <InboxIcon />,
+      icon: <Dashboard />,
     },
     {
       link: '/Sample',
       name: 'Sample',
-      icon: <InboxIcon />,
+      icon: <BarChart />,
     },
     {
       link: '/Arbitrage',
       name: 'Arbitrage',
-      icon: <InboxIcon />,
+      icon: <TrendingUp />,
     },
     {
       link: '/Portfolio',
       name: 'Portfolio',
-      icon: <InboxIcon />,
+      icon: <BusinessCenter />,
     }
   ]
   const drawer = (
