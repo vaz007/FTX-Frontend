@@ -37,10 +37,10 @@ const Arbitrage = () => {
             headerName: "bpsSpread", field: "bpsSpread", sortable: true, filter: true
         },
         {
-            headerName: "change1Hr", field: "change1h", sortable: true, filter: true
+            headerName: "chg1Hr", field: "change1h", sortable: true, filter: true
         },
         {
-        headerName: "change24Hr", field: "change24h", sortable: true, filter: true
+        headerName: "chg4Hr", field: "change24h", sortable: true, filter: true
         },
         {
             headerName: "bidPrice", field: "bidPrice", sortable: true, filter: true
