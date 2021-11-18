@@ -37,10 +37,10 @@ const Arbitrage = () => {
             headerName: "bpsSpread", field: "bpsSpread", sortable: true, filter: true
         },
         {
-            headerName: "chg1Hr", field: "change1h", sortable: true, filter: true
+            headerName: "change1h", field: "change1h", sortable: true, filter: true
         },
         {
-        headerName: "chg4Hr", field: "change24h", sortable: true, filter: true
+            headerName: "change24h", field: "change24h", sortable: true, filter: true
         },
         {
             headerName: "bidPrice", field: "bidPrice", sortable: true, filter: true
@@ -76,8 +76,8 @@ const Arbitrage = () => {
                         absBasis: item.absBasis.toFixed(3),
                         absSpread: item.absSpread.toFixed(3),
                         bpsSpread: item.bpsSpread.toFixed(3),
-                        change1h: item.change1hPercentage.toFixed(3),
-                        change24h: item.change24hPercentage.toFixed(3)
+                        change1h: item.change1hPercentage.toFixed(2),
+                        change24h: item.change24hPercentage.toFixed(2)
                     })
                 })
                 setRowData([...result])
