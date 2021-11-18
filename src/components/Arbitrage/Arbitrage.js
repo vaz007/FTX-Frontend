@@ -5,8 +5,8 @@ import { Grid, makeStyles, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     agGridItem: {
-        height: "80%",
-        maxHeight: "70%"
+        height: "90%",
+        maxHeight: "80%"
     }
 
 }));
@@ -22,12 +22,6 @@ const Arbitrage = () => {
             headerName: "bpsBasis", field: "bpsBasis", sortable: true, filter: true
         },
         {
-            headerName: "change 1Hr", field: "change1h", sortable: true, filter: true
-        },
-        {
-            headerName: "change 24Hr", field: "change24h", sortable: true, filter: true
-        },
-        {
             headerName: "absBasis", field: "absBasis", sortable: true, filter: true
         },
         {
@@ -41,6 +35,12 @@ const Arbitrage = () => {
         },
         {
             headerName: "bpsSpread", field: "bpsSpread", sortable: true, filter: true
+        },
+        {
+            headerName: "change1Hr", field: "change1h", sortable: true, filter: true
+        },
+        {
+        headerName: "change24Hr", field: "change24h", sortable: true, filter: true
         },
         {
             headerName: "bidPrice", field: "bidPrice", sortable: true, filter: true
