@@ -76,8 +76,8 @@ const Arbitrage = () => {
                         absBasis: item.absBasis.toFixed(3),
                         absSpread: item.absSpread.toFixed(3),
                         bpsSpread: item.bpsSpread.toFixed(3),
-                        change1h: item.change1hPercentage.toFixed(2),
-                        change24h: item.change24hPercentage.toFixed(2)
+                        change1h: item.change1hPercentage.toFixed(3),
+                        change24h: item.change24hPercentage.toFixed(3),
                     })
                 })
                 setRowData([...result])
