@@ -15,32 +15,19 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const AgGrid = ({ row, column }) => {
+const AgGrid = ({ row, column, onGridReady }) => {
     const classes = useStyles()
     const [rowData, setrowData] = useState(row)
     const [columnData, setcolumnData] = useState(column)
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
     useEffect(() => {
-        console.log("ROW DATA ", rowData)
+       // console.log("ROW DATA ", rowData)
         if (row !== null) {
             setrowData(row)
         }
     }, [row])
-    // const onGridReady = (params) => {
-    //     setGridApi(params.api);
-    //     setGridColumnApi(params.columnApi);
-    //   //  gridApi.setDomLayout('autoHeight');
 
-    //     params.api.sizeColumnsToFit();
-    //     window.addEventListener('resize', function () {
-    //         setTimeout(function () {
-    //             params.api.sizeColumnsToFit();
-    //         });
-    //     });
-
-    //     params.api.sizeColumnsToFit();
-    // };
     const defaultColOptions = {
         enableRowGroup: true,
         enablePivot: true,
@@ -48,9 +35,7 @@ const AgGrid = ({ row, column }) => {
         sortable: true,
         filter: true,
         resizable: true,
-
-        //cellClass: "cell-border cell-vertical-align-text-right",
-        // cellStyle: {textAlign: 'center'}
+        sizeColumnsToFit: true
     }
     return (
         <div className={classes.root}>
@@ -61,11 +46,14 @@ const AgGrid = ({ row, column }) => {
                     enableRangeSelection="true"
                     domLayout='autoHeight'
                     animateRows="true"
+                    rowSelection={'multiple'}
+                    rowMultiSelectWithClick={true}
                     rowData={rowData}
                     columnDefs={columnData}
-                  //  onGridReady={onGridReady}
+                    onGridReady={(event) => onGridReady(event)}
                     pagination={true}
-                    paginationPageSize={8}
+                    paginationPageSize={10}
+
                 />
             </div>
         </div>

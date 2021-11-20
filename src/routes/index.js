@@ -46,6 +46,7 @@ const Routes = ({ isAuthenticated, token, alert }) => {
         <>
             <div className={classes.base}>
                 <Navbar />
+                <Toast />
                 <div className={classes.content}>
                     <div className={classes.toolbar} />
                     <Switch>
@@ -54,7 +55,7 @@ const Routes = ({ isAuthenticated, token, alert }) => {
                         <Route path="/Sample" component={Sample} />
                         <Route path="/Arbitrage" component={Arbitrage} />
                         <Route path="/Portfolio" component={Portfolio} />
-                     
+
                         {/* <RouteProtected path="/" exact component={} /> */}
                     </Switch>
                 </div>

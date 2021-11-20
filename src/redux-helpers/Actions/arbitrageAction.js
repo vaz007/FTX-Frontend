@@ -3,7 +3,7 @@ import baseApiReq from '../../api';
 import { returnErrors } from "./errorAction";
 
 export const latestBasisByBaseName = (body) => async (dispatch) => {
-    console.log("BASE API ", process.env.REACT_APP_BASE_URL);
+    // console.log("BASE API ", process.env.REACT_APP_BASE_URL);
     await baseApiReq.post("/latestBasisByBaseName", body)
         .then(res => {
             dispatch({
