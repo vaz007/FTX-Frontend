@@ -136,7 +136,7 @@ const Portfolio = () => {
                 setRowData([...result])
             }
         }).catch(err => {
-           // console.log(err)
+            console.log(err)
         })
 
     }

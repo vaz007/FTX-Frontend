@@ -75,19 +75,19 @@ const Arbitrage = () => {
                 res.data.data.map(item => {
                     result.push({
                         symbol: item.symbol,
-                        bpsBasis: item.absPrice.toFixed(3),
-                        futurePrice: item.futurePrice.toFixed(3),
-                        bidPrice: item.bidPrice.toFixed(3),
-                        askPrice: item.askPrice.toFixed(3),
+                        bpsBasis: item.absPrice.toFixed(2),
+                        futurePrice: item.futurePrice.toFixed(2),
+                        bidPrice: item.bidPrice.toFixed(2),
+                        askPrice: item.askPrice.toFixed(2),
                         askSize: item.askSize.toFixed(3),
                         bidSize: item.bidSize.toFixed(3),
                         midPrice: item.midPrice.toFixed(3),
                         spotPrice: item.spotPrice.toFixed(3),
-                        absBasis: item.absBasis.toFixed(3),
-                        absSpread: item.absSpread.toFixed(3),
-                        bpsSpread: item.bpsSpread.toFixed(3),
-                        change1h: item.change1hPercentage.toFixed(3),
-                        change24h: item.change24hPercentage.toFixed(3),
+                        absBasis: item.absBasis.toFixed(2),
+                        absSpread: item.absSpread.toFixed(2),
+                        bpsSpread: item.bpsSpread.toFixed(2),
+                        change1h: item.change1hPercentage.toFixed(2),
+                        change24h: item.change24hPercentage.toFixed(2),
                     })
                 })
                 setRowData([...result])
