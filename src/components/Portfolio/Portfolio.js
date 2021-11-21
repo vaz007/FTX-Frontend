@@ -17,79 +17,126 @@ const Portfolio = () => {
     const [rowData, setRowData] = useState([]);
     const colDefs = [
         {
-            headerName: "future", field: "future", sortable: true, filter: true
+            headerName: "future", field: "future", sortable: true, filter: true, width: 100
         },
         {
-            headerName: "size", field: "size", sortable: true, filter: true
+            headerName: "size", field: "size", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "side", field: "side", sortable: true, filter: true
+            headerName: "side", field: "side", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "netSize", field: "netSize", sortable: true, filter: true
+            headerName: "netSize", field: "netSize", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "longOrderSize", field: "longOrderSize", sortable: true, filter: true
+            headerName: "longOrderSize", field: "longOrderSize", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "shortOrderSize", field: "shortOrderSize", sortable: true, filter: true
+            headerName: "shortOrderSize", field: "shortOrderSize", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "cost", field: "cost", sortable: true, filter: true
+            headerName: "cost", field: "cost", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "unrealizedPnl", field: "unrealizedPnl", sortable: true, filter: true
+            headerName: "unrealizedPnl", field: "unrealizedPnl", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "realizedPnl", field: "realizedPnl", sortable: true, filter: true
+            headerName: "realizedPnl", field: "realizedPnl", sortable: true, filter: true, width: 120
         },
         {
-            headerName: "initialMarginRequirement", field: "initialMarginRequirement", sortable: true, filter: true
+            headerName: "initialMarginRequirement", field: "initialMarginRequirement", sortable: true, filter: true, width: 120
         },
         {
-            headerName: "maintenanceMarginRequirement", field: "maintenanceMarginRequirement", sortable: true, filter: true
+            headerName: "maintenanceMarginRequirement", field: "maintenanceMarginRequirement", sortable: true, filter: true, width: 120
         },
         {
-            headerName: "openSize", field: "openSize", sortable: true, filter: true
+            headerName: "openSize", field: "openSize", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "collateralUsed", field: "collateralUsed", sortable: true, filter: true
+            headerName: "collateralUsed", field: "collateralUsed", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "estimatedLiquidationPrice", field: "estimatedLiquidationPrice", sortable: true, filter: true
+            headerName: "estimatedLiquidationPrice", field: "estimatedLiquidationPrice", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "recentAverageOpenPrice", field: "recentAverageOpenPrice", sortable: true, filter: true
+            headerName: "recentAverageOpenPrice", field: "recentAverageOpenPrice", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "recentPnl", field: "recentPnl", sortable: true, filter: true
+            headerName: "recentPnl", field: "recentPnl", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "recentBreakEvenPrice", field: "recentBreakEvenPrice", sortable: true, filter: true
+            headerName: "recentBreakEvenPrice", field: "recentBreakEvenPrice", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "cumulativeBuySize", field: "cumulativeBuySize", sortable: true, filter: true
+            headerName: "cumulativeBuySize", field: "cumulativeBuySize", sortable: true, filter: true, width: 90
         },
         {
-            headerName: "cumulativeSellSize", field: "cumulativeSellSize", sortable: true, filter: true
+            headerName: "cumulativeSellSize", field: "cumulativeSellSize", sortable: true, filter: true, width: 90
         },
     ]
 
+    const onGridReady = (event) => {
+        // event.api.sizeColumnsToFit()
+    };
     useEffect(() => {
         initialAxiosCalls()
     }, []);
     const initialAxiosCalls = async () => {
         await baseApiReq.get(`/positions?showAveragePrice=${true}`).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             const result = []
             if (res.data.data.length !== 0) {
-                res.data.data.map((item) => {
-                    result.push({ ...item })
+                res.data.data.map(({
+                    future,
+                    size,
+                    side,
+                    netSize,
+                    longOrderSize,
+                    shortOrderSize,
+                    cost,
+                    entryPrice,
+                    unrealizedPnl,
+                    realizedPnl,
+                    initialMarginRequirement,
+                    maintenanceMarginRequirement,
+                    openSize,
+                    collateralUsed,
+                    estimatedLiquidationPrice,
+                    recentAverageOpenPrice,
+                    recentPnl,
+                    recentBreakEvenPrice,
+                    cumulativeBuySize,
+                    cumulativeSellSize,
+
+                }) => {
+                    result.push({
+                        future,
+                        size,
+                        side,
+                        netSize,
+                        longOrderSize,
+                        shortOrderSize,
+                        cost,
+                        entryPrice,
+                        unrealizedPnl: unrealizedPnl !== null ? unrealizedPnl.toFixed(3) : 0,
+                        realizedPnl: realizedPnl !== null ? realizedPnl.toFixed(3) : 0,
+                        initialMarginRequirement: initialMarginRequirement !== null ? initialMarginRequirement.toFixed(3) : 0,
+                        maintenanceMarginRequirement: maintenanceMarginRequirement !== null ? maintenanceMarginRequirement.toFixed(3) : 0,
+                        openSize: openSize !== null ? openSize.toFixed(3) : null,
+                        collateralUsed: collateralUsed !== null ? collateralUsed.toFixed(3) : 0,
+                        estimatedLiquidationPrice: estimatedLiquidationPrice !== null ? estimatedLiquidationPrice.toFixed(3) : 0,
+                        recentAverageOpenPrice: recentAverageOpenPrice !== null ? recentAverageOpenPrice.toFixed(3) : 0,
+                        recentPnl: recentPnl !== null ? recentPnl.toFixed(3) : 0,
+                        recentBreakEvenPrice: recentBreakEvenPrice !== null ? recentBreakEvenPrice.toFixed(3) : 0,
+                        cumulativeBuySize: cumulativeBuySize !== null ? cumulativeBuySize.toFixed(3) : 0,
+                        cumulativeSellSize: cumulativeSellSize !== null ? cumulativeSellSize.toFixed(3) : 0,
+
+                    })
                 })
                 setRowData([...result])
             }
         }).catch(err => {
-            console.log(err)
+           // console.log(err)
         })
 
     }
@@ -101,6 +148,7 @@ const Portfolio = () => {
                     <AgGrid
                         row={rowData}
                         column={colDefs}
+                        onGridReady={onGridReady}
                     />
                 </Paper>
             </Grid>

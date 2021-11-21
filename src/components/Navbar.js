@@ -78,6 +78,7 @@ function Navbar(props) {
 
   useEffect(() => {
     //   props.window();
+    // console.log(newActiveLink);
   }, [newActiveLink]);
 
   const drawerArray = [
@@ -159,7 +160,7 @@ function Navbar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Arbitrage
+            {drawerArray[newActiveLink] !== undefined ? drawerArray[newActiveLink].name : 'Statistical Arbitrage'}
           </Typography>
         </Toolbar>
       </AppBar>

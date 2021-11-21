@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import AgGrid from '../AgGrid/AgGrid'
 import baseApiReq from '../../api';
 import { Grid, makeStyles, Paper } from '@material-ui/core';
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
     agGridItem: {
@@ -16,7 +17,12 @@ const Arbitrage = () => {
     const [rowData, setRowData] = useState([]);
     const colDefs = [
         {
-            headerName: "symbol", field: "symbol", sortable: true, filter: true
+            headerName: "symbol", field: "symbol", 
+            sortable: true, 
+            filter: true,
+            // headerCheckboxSelection: true,
+            // headerCheckboxSelectionFilteredOnly: true,
+            // checkboxSelection: true,
         },
         {
             headerName: "bpsBasis", field: "bpsBasis", sortable: true, filter: true
@@ -40,7 +46,7 @@ const Arbitrage = () => {
             headerName: "change1h", field: "change1h", sortable: true, filter: true
         },
         {
-            headerName: "change24h", field: "change24h", sortable: true, filter: true
+            headerName: "chg4Hr", field: "change24h", sortable: true, filter: true
         },
         {
             headerName: "bidPrice", field: "bidPrice", sortable: true, filter: true
@@ -53,12 +59,16 @@ const Arbitrage = () => {
         },
     ]
 
+    const onGridReady = (event) => {
+        event.api.sizeColumnsToFit()
+    };
+
     useEffect(() => {
         initialAxiosCalls()
     }, []);
     const initialAxiosCalls = async () => {
-
-        await baseApiReq.post("/latestBasisByBaseName").then(res => {
+        const body = {}
+        await baseApiReq.post("/latestBasisByBaseName", body).then(res => {
             //  console.log(res.data);
             const result = []
             if (res.data.data.length !== 0) {
@@ -81,25 +91,25 @@ const Arbitrage = () => {
                     })
                 })
                 setRowData([...result])
+                toast.success("Succesfully fetched all the markets.")
             }
         }).catch(err => {
-            console.log(err)
+            // console.log(err)
+            toast.error("Unable to fetch the data")
         })
 
     }
     return (
-        <Grid container>
+        <Grid container
+            justifyContent="center"
+        >
             <Grid item xs={12} sm={12} md={12} lg={11} xl={10} >
                 <Paper elevation={3}
-                    className={classes.agGridItem}
-                    style={{
-                        backgroundColor: "red",
-                        // width: "80%",
-                        height: "80%"
-                    }}>
+                    className={classes.agGridItem}>
                     <AgGrid
                         row={rowData}
                         column={colDefs}
+                        onGridReady={onGridReady}
                     />
                 </Paper>
             </Grid>

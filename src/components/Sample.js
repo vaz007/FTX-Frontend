@@ -95,7 +95,7 @@ const Sample = ({ latestBasisByBaseName, arbitrage, error, status }) => {
             toast.error("Unable to complete the action.")
             clearErrors();
         } else {
-            console.log("STATUS : ", status)
+           // console.log("STATUS : ", status)
             const arr = []
             const arr1 = [];
             arbitrage.map(item => {
@@ -104,8 +104,8 @@ const Sample = ({ latestBasisByBaseName, arbitrage, error, status }) => {
             })
             setlatestBasisByFutureSymbol([...arr]);
             setlatestBasisByFuture([...arr1]);
-            console.log(latestBasisByFutureSymbol);
-            console.log(latestBasisByFuture)
+           //  console.log(latestBasisByFutureSymbol);
+            // console.log(latestBasisByFuture)
         }
     }, [error, status, arbitrage])
     const initialAxiosCall = () => {
@@ -135,7 +135,7 @@ const Sample = ({ latestBasisByBaseName, arbitrage, error, status }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(baseName);
+        // console.log(baseName);
         const body = {
             depth: 1,
             baseName
@@ -200,7 +200,7 @@ const Sample = ({ latestBasisByBaseName, arbitrage, error, status }) => {
 
 
 const mapStateToProps = (state) => {
-    console.log("STATE : ", state)
+   // console.log("STATE : ", state)
     return {
         arbitrage: state.arbitrage.arbitrage,
         error: state.error,
