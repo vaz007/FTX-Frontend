@@ -1,14 +1,29 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import AgGrid from '../AgGrid/AgGrid'
 import baseApiReq from '../../api';
-import { Grid, makeStyles, Paper } from '@material-ui/core';
+import { Grid, makeStyles, Paper, List, ListItem, ListItemButton, ListItemText } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
     agGridItem: {
         height: "80%",
         maxHeight: "70%"
-    }
+    },
+    spamNegative: {
+        color: 'red',
+    },
+    spamPositive: {
+        color: "rgb(16, 185, 129)",
+    },
+    listContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    listItem: {
+        flex: '0 0 24%',
+
+    },
 
 }));
 const colOptions = {
@@ -17,6 +32,7 @@ const colOptions = {
 const Portfolio = () => {
     const classes = useStyles();
     const [rowData, setRowData] = useState([]);
+    const [data, setData] = useState(null);
     const colDefs = [
         {
             headerName: "future", field: "future", ...colOptions, width: 100
@@ -84,8 +100,28 @@ const Portfolio = () => {
         initialAxiosCalls()
     }, []);
     const initialAxiosCalls = async () => {
+
         await baseApiReq.get(`/portfolio`).then(res => {
             console.log(res.data);
+            const { collateral,
+                freeCollateral,
+                totalAccountValue,
+                totalPositionSize,
+                initialMarginRequirement,
+                maintenanceMarginRequirement,
+                marginFraction,
+                openMarginFraction,
+            } = res.data.data;
+            setData({
+                'Collateral' : collateral,
+                'Free Collateral': freeCollateral,
+                'Account Value': totalAccountValue,
+                'Position Size': totalPositionSize,
+                'Initial Margin Requirement': initialMarginRequirement,
+                'Maintenance Margin Requirement': maintenanceMarginRequirement,
+                'Margin Fraction': marginFraction,
+                'Open Margin Fraction': openMarginFraction,
+            })
             const result = []
             if (res.data.data.length !== 0) {
                 res.data.data.positions.map(({
@@ -136,10 +172,38 @@ const Portfolio = () => {
 
     }
     return (
-        <Grid container>
+        <Grid container
+            justifyContent="center"
+        >
+            <Grid item xs={12} sm={12} md={12} lg={11} xl={10} >
+                {
+                    data !== null ? (
+
+                        <List className={classes.listContainer}>
+                            {
+                                Object.keys(data).map((keyName, i) => (
+                                    <ListItem className={classes.listItem}>
+                                        <ListItemText className={classes.listItemPrimary} primary={`${keyName} : `} />
+                                        <ListItemText secondary
+                                            className={data[keyName] < 0 ? classes.spamNegative : classes.spamPositive} >
+                                            {parseFloat(data[keyName]).toFixed(3)}
+                                        </ListItemText>
+                                    </ListItem>
+                                ))
+                            }
+
+                        </List>
+                    ) : ""
+                }
+
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={11} xl={10} >
+
+            </Grid>
             <Grid item xs={12} sm={12} md={12} lg={11} xl={10} >
                 <Paper elevation={3}
                     className={classes.agGridItem}>
+
                     <AgGrid
                         row={rowData}
                         column={colDefs}
