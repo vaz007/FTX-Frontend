@@ -11,67 +11,69 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-
+const colOptions = {
+    sortable: true, filter: true, sortingOrder: ["desc"]
+}
 const Portfolio = () => {
     const classes = useStyles();
     const [rowData, setRowData] = useState([]);
     const colDefs = [
         {
-            headerName: "future", field: "future", sortable: true, filter: true, width: 100
+            headerName: "future", field: "future", ...colOptions, width: 100
         },
         {
-            headerName: "size", field: "size", sortable: true, filter: true, width: 90
+            headerName: "size", field: "size", ...colOptions, width: 90
         },
         {
-            headerName: "side", field: "side", sortable: true, filter: true, width: 90
+            headerName: "side", field: "side", ...colOptions, width: 90
         },
         {
-            headerName: "netSize", field: "netSize", sortable: true, filter: true, width: 90
+            headerName: "netSize", field: "netSize", ...colOptions, width: 90
         },
         {
-            headerName: "longOrderSize", field: "longOrderSize", sortable: true, filter: true, width: 90
+            headerName: "longOrderSize", field: "longOrderSize", ...colOptions, width: 90
         },
         {
-            headerName: "shortOrderSize", field: "shortOrderSize", sortable: true, filter: true, width: 90
+            headerName: "shortOrderSize", field: "shortOrderSize", ...colOptions, width: 90
         },
         {
-            headerName: "cost", field: "cost", sortable: true, filter: true, width: 90
+            headerName: "cost", field: "cost", ...colOptions, width: 90
         },
         {
-            headerName: "unrealizedPnl", field: "unrealizedPnl", sortable: true, filter: true, width: 90
+            headerName: "entryPrice", field: "entryPrice", ...colOptions, width: 90
         },
         {
-            headerName: "realizedPnl", field: "realizedPnl", sortable: true, filter: true, width: 120
+            headerName: "unrealizedPnl", field: "unrealizedPnl", ...colOptions, width: 90
         },
         {
-            headerName: "initialMarginRequirement", field: "initialMarginRequirement", sortable: true, filter: true, width: 120
+            headerName: "realizedPnl", field: "realizedPnl", ...colOptions, width: 120
         },
         {
-            headerName: "maintenanceMarginRequirement", field: "maintenanceMarginRequirement", sortable: true, filter: true, width: 120
+            headerName: "initialMarginRequirement", field: "initialMarginRequirement", ...colOptions, width: 120
         },
         {
-            headerName: "openSize", field: "openSize", sortable: true, filter: true, width: 90
+            headerName: "maintenanceMarginRequirement", field: "maintenanceMarginRequirement", ...colOptions, width: 120
         },
         {
-            headerName: "collateralUsed", field: "collateralUsed", sortable: true, filter: true, width: 90
+            headerName: "openSize", field: "openSize", ...colOptions, width: 90
         },
         {
-            headerName: "estimatedLiquidationPrice", field: "estimatedLiquidationPrice", sortable: true, filter: true, width: 90
+            headerName: "collateralUsed", field: "collateralUsed", ...colOptions, width: 90
         },
         {
-            headerName: "recentAverageOpenPrice", field: "recentAverageOpenPrice", sortable: true, filter: true, width: 90
+            headerName: "estimatedLiquidationPrice", field: "estimatedLiquidationPrice", ...colOptions, width: 90
         },
         {
-            headerName: "recentPnl", field: "recentPnl", sortable: true, filter: true, width: 90
+            headerName: "volume", field: "volume", ...colOptions, width: 90
         },
         {
-            headerName: "recentBreakEvenPrice", field: "recentBreakEvenPrice", sortable: true, filter: true, width: 90
+            headerName: "nextFundingRate", field: "nextFundingRate", ...colOptions, width: 90
         },
         {
-            headerName: "cumulativeBuySize", field: "cumulativeBuySize", sortable: true, filter: true, width: 90
+            headerName: "nextFundingTime", field: "nextFundingTime", ...colOptions, width: 90
         },
         {
-            headerName: "cumulativeSellSize", field: "cumulativeSellSize", sortable: true, filter: true, width: 90
+            headerName: "openInterest", field: "openInterest", ...colOptions, width: 90
         },
     ]
 
@@ -82,11 +84,11 @@ const Portfolio = () => {
         initialAxiosCalls()
     }, []);
     const initialAxiosCalls = async () => {
-        await baseApiReq.get(`/positions?showAveragePrice=${true}`).then(res => {
-            // console.log(res.data);
+        await baseApiReq.get(`/portfolio`).then(res => {
+            console.log(res.data);
             const result = []
             if (res.data.data.length !== 0) {
-                res.data.data.map(({
+                res.data.data.positions.map(({
                     future,
                     size,
                     side,
@@ -102,12 +104,7 @@ const Portfolio = () => {
                     openSize,
                     collateralUsed,
                     estimatedLiquidationPrice,
-                    recentAverageOpenPrice,
-                    recentPnl,
-                    recentBreakEvenPrice,
-                    cumulativeBuySize,
-                    cumulativeSellSize,
-
+                    futureStats,
                 }) => {
                     result.push({
                         future,
@@ -117,20 +114,18 @@ const Portfolio = () => {
                         longOrderSize,
                         shortOrderSize,
                         cost,
-                        entryPrice,
-                        unrealizedPnl: unrealizedPnl !== null ? unrealizedPnl.toFixed(3) : 0,
-                        realizedPnl: realizedPnl !== null ? realizedPnl.toFixed(3) : 0,
-                        initialMarginRequirement: initialMarginRequirement !== null ? initialMarginRequirement.toFixed(3) : 0,
-                        maintenanceMarginRequirement: maintenanceMarginRequirement !== null ? maintenanceMarginRequirement.toFixed(3) : 0,
-                        openSize: openSize !== null ? openSize.toFixed(3) : null,
-                        collateralUsed: collateralUsed !== null ? collateralUsed.toFixed(3) : 0,
-                        estimatedLiquidationPrice: estimatedLiquidationPrice !== null ? estimatedLiquidationPrice.toFixed(3) : 0,
-                        recentAverageOpenPrice: recentAverageOpenPrice !== null ? recentAverageOpenPrice.toFixed(3) : 0,
-                        recentPnl: recentPnl !== null ? recentPnl.toFixed(3) : 0,
-                        recentBreakEvenPrice: recentBreakEvenPrice !== null ? recentBreakEvenPrice.toFixed(3) : 0,
-                        cumulativeBuySize: cumulativeBuySize !== null ? cumulativeBuySize.toFixed(3) : 0,
-                        cumulativeSellSize: cumulativeSellSize !== null ? cumulativeSellSize.toFixed(3) : 0,
-
+                        entryPrice: entryPrice !== null ? parseFloat(entryPrice.toFixed(3)) : 0,
+                        unrealizedPnl: unrealizedPnl !== null ? parseFloat(unrealizedPnl.toFixed(3)) : 0,
+                        realizedPnl: realizedPnl !== null ? parseFloat(realizedPnl.toFixed(3)) : 0,
+                        initialMarginRequirement,
+                        maintenanceMarginRequirement,
+                        openSize,
+                        collateralUsed,
+                        estimatedLiquidationPrice: estimatedLiquidationPrice !== null ? parseFloat(estimatedLiquidationPrice.toFixed(3)) : 0,
+                        volume: futureStats.volume !== null ? parseFloat(futureStats.volume.toFixed(3)) : 0,
+                        nextFundingRate: futureStats.nextFundingRate !== null ? parseFloat(futureStats.nextFundingRate.toFixed(3)) : 0,
+                        nextFundingTime: futureStats.nextFundingTime,
+                        openInterest: futureStats.openInterest !== null ? parseFloat(futureStats.openInterest.toFixed(3)) : 0,
                     })
                 })
                 setRowData([...result])

@@ -51,8 +51,8 @@ const AgGrid = ({ row, column, onGridReady }) => {
                     rowData={rowData}
                     columnDefs={columnData}
                     onGridReady={(event) => onGridReady(event)}
-                    pagination={true}
-                    paginationPageSize={20}
+                    // pagination={true}
+                    // paginationPageSize={20}
 
                 />
             </div>

@@ -11,51 +11,48 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-
+const colOptions = {
+    sortable: true, filter: true, sortingOrder: ["desc"]
+}
 const Arbitrage = () => {
     const classes = useStyles();
     const [rowData, setRowData] = useState([]);
     const colDefs = [
         {
-            headerName: "symbol", field: "symbol", 
-            sortable: true, 
-            filter: true,
-            // headerCheckboxSelection: true,
-            // headerCheckboxSelectionFilteredOnly: true,
-            // checkboxSelection: true,
+            headerName: "symbol", field: "symbol", ...colOptions,
         },
         {
-            headerName: "bpsBasis", field: "bpsBasis", sortable: true, filter: true
+            headerName: "bpsBasis", field: "bpsBasis", ...colOptions,
         },
         {
-            headerName: "absBasis", field: "absBasis", sortable: true, filter: true
+            headerName: "absBasis", field: "absBasis", ...colOptions,
         },
         {
-            headerName: "spotPrice", field: "spotPrice", sortable: true, filter: true
+            headerName: "spotPrice", field: "spotPrice", ...colOptions,
         },
         {
-            headerName: "futPrice", field: "futurePrice", sortable: true, filter: true
+            headerName: "futPrice", field: "futurePrice", ...colOptions,
         },
         {
-            headerName: "absSpread", field: "absSpread", sortable: true, filter: true
+            headerName: "absSpread", field: "absSpread", ...colOptions,
         },
         {
-            headerName: "bpsSpread", field: "bpsSpread", sortable: true, filter: true
+            headerName: "bpsSpread", field: "bpsSpread", ...colOptions,
         },
         {
-            headerName: "change1h", field: "change1h", sortable: true, filter: true
+            headerName: "change1h", field: "change1h", ...colOptions,
         },
         {
-            headerName: "chg4Hr", field: "change24h", sortable: true, filter: true
+            headerName: "chg4Hr", field: "change24h", ...colOptions,
         },
         {
-            headerName: "bidPrice", field: "bidPrice", sortable: true, filter: true
+            headerName: "bidPrice", field: "bidPrice", ...colOptions,
         },
         {
-            headerName: "bidSize", field: "bidSize", sortable: true, filter: true
+            headerName: "bidSize", field: "bidSize", ...colOptions,
         },
         {
-            headerName: "midPrice", field: "midPrice", sortable: true, filter: true
+            headerName: "midPrice", field: "midPrice", ...colOptions,
         },
     ]
 
@@ -68,6 +65,8 @@ const Arbitrage = () => {
     }, []);
     const initialAxiosCalls = async () => {
         const body = {}
+        // console.log("TYPE OFF : ", typeof (rowData[1].bpsBasis), rowData[1].bpsBasis)
+
         await baseApiReq.post("/latestBasisByBaseName", body).then(res => {
             //  console.log(res.data);
             const result = []
@@ -75,26 +74,28 @@ const Arbitrage = () => {
                 res.data.data.map(item => {
                     result.push({
                         symbol: item.symbol,
-                        bpsBasis: item.absPrice.toFixed(2),
-                        futurePrice: item.futurePrice.toFixed(2),
-                        bidPrice: item.bidPrice.toFixed(2),
-                        askPrice: item.askPrice.toFixed(2),
-                        askSize: item.askSize.toFixed(3),
-                        bidSize: item.bidSize.toFixed(3),
-                        midPrice: item.midPrice.toFixed(3),
-                        spotPrice: item.spotPrice.toFixed(3),
-                        absBasis: item.absBasis.toFixed(2),
-                        absSpread: item.absSpread.toFixed(2),
-                        bpsSpread: item.bpsSpread.toFixed(2),
-                        change1h: item.change1hPercentage.toFixed(2),
-                        change24h: item.change24hPercentage.toFixed(2),
+                        bpsBasis: parseFloat(item.absPrice.toFixed(2)),
+                        futurePrice: parseFloat(item.futurePrice.toFixed(2)),
+                        bidPrice: parseFloat(item.bidPrice.toFixed(2)),
+                        askPrice: parseFloat(item.askPrice.toFixed(2)),
+                        askSize: parseFloat(item.askSize.toFixed(3)),
+                        bidSize: parseFloat(item.bidSize.toFixed(3)),
+                        midPrice: parseFloat(item.midPrice.toFixed(3)),
+                        spotPrice: parseFloat(item.spotPrice.toFixed(3)),
+                        absBasis: parseFloat(item.absBasis.toFixed(2)),
+                        absSpread: parseFloat(item.absSpread.toFixed(2)),
+                        bpsSpread: parseFloat(item.bpsSpread.toFixed(2)),
+                        change1h: parseFloat(item.change1hPercentage.toFixed(2)),
+                        change24h: parseFloat(item.change24hPercentage.toFixed(2)),
                     })
                 })
                 setRowData([...result])
+                console.log(rowData)
+                console.log("TYPE OFF : ", typeof (rowData[1].bpsBasis), rowData[1].bpsBasis)
                 toast.success("Succesfully fetched all the markets.")
             }
         }).catch(err => {
-            // console.log(err)
+            console.log(err)
             toast.error("Unable to fetch the data")
         })
 
