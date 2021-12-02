@@ -91,6 +91,134 @@ const Portfolio = () => {
         {
             headerName: "openInterest", field: "openInterest", ...colOptions, width: 90
         },
+
+        {
+            headerName: "name",
+            field: "name",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "enabled",
+            field: "enabled",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "postOnly",
+            field: "postOnly",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "priceIncrement",
+            field: "priceIncrement",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "sizeIncrement",
+            field: "sizeIncrement",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "minProvideSize",
+            field: "minProvideSize",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "last",
+            field: "last",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "bid",
+            field: "bid",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "ask",
+            field: "ask",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "price",
+            field: "price",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "type",
+            field: "type",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "baseCurrency",
+            field: "baseCurrency",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "quoteCurrency",
+            field: "quoteCurrency",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "underlying",
+            field: "underlying",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "restricted",
+            field: "restricted",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "highLeverageFeeExempt",
+            field: "highLeverageFeeExempt",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "change1h",
+            field: "change1h",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "change24h",
+            field: "change24h",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "changeBod",
+            field: "changeBod",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "quoteVolume24h",
+            field: "quoteVolume24h",
+            ...colOptions,
+            "width": 90
+        },
+        {
+            headerName: "volumeUsd24h",
+            field: "volumeUsd24h",
+            ...colOptions,
+            "width": 90
+        }
+
     ]
 
     const onGridReady = (event) => {
@@ -113,7 +241,7 @@ const Portfolio = () => {
                 openMarginFraction,
             } = res.data.data;
             setData({
-                'Collateral' : collateral,
+                'Collateral': collateral,
                 'Free Collateral': freeCollateral,
                 'Account Value': totalAccountValue,
                 'Position Size': totalPositionSize,
@@ -141,6 +269,7 @@ const Portfolio = () => {
                     collateralUsed,
                     estimatedLiquidationPrice,
                     futureStats,
+                    spotDetails,
                 }) => {
                     result.push({
                         future,
@@ -162,6 +291,29 @@ const Portfolio = () => {
                         nextFundingRate: futureStats.nextFundingRate !== null ? parseFloat(futureStats.nextFundingRate.toFixed(3)) : 0,
                         nextFundingTime: futureStats.nextFundingTime,
                         openInterest: futureStats.openInterest !== null ? parseFloat(futureStats.openInterest.toFixed(3)) : 0,
+
+                        enabled: spotDetails.enabled,
+                        postOnly: spotDetails.postOnly,
+                        priceIncrement: spotDetails.priceIncrement,
+                        sizeIncrement: spotDetails.sizeIncrement,
+                        minProvideSize: spotDetails.minProvideSize,
+                        last: spotDetails.last,
+                        bid: spotDetails.bid,
+                        ask: spotDetails.ask,
+                        price: spotDetails.price,
+                        type: spotDetails.type,
+                        baseCurrency: spotDetails.baseCurrency,
+                        quoteCurrency: spotDetails.quoteCurrency,
+                        underlying: spotDetails.underlying,
+                        restricted: spotDetails.restricted,
+                        highLeverageFeeExempt: spotDetails.highLeverageFeeExempt,
+                        change1h: spotDetails.change1h,
+                        change24h: spotDetails.change24h,
+                        changeBod: spotDetails.changeBod,
+                        quoteVolume24h: spotDetails.quoteVolume24h,
+                        volumeUsd24h: spotDetails.volumeUsd24h
+
+
                     })
                 })
                 setRowData([...result])
